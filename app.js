@@ -2,6 +2,7 @@
 const express = require('express');
 const app = express();
 const expressArttemplate = require('express-art-template');
+const bodyParser = require('body-parser');
 
 
 //导入路由模块
@@ -19,6 +20,10 @@ app.use('/node_modules',express.static('./node_modules'));
 
 //配置模板引擎
 app.engine('html',expressArttemplate);
+
+//配置body-parser
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 
 //挂载路由

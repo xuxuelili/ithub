@@ -20,7 +20,7 @@ router
     .post('/signin',userCtrl.handleSignin)
     .get('/signup',userCtrl.showSignup)
     .post('/signup',userCtrl.handleSignup)
-    .get('/signout',userCtrl.showSignout)
+    .get('/signout',userCtrl.handleSignout)
 
 //设置话题
 //TODO

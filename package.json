@@ -21,8 +21,11 @@
   "homepage": "https://github.com/xuxuelili/ithub#readme",
   "dependencies": {
     "art-template": "^4.12.2",
+    "body-parser": "^1.18.3",
     "bootstrap": "^3.3.7",
     "express": "^4.16.3",
-    "express-art-template": "^1.0.1"
+    "express-art-template": "^1.0.1",
+    "md5": "^2.2.1",
+    "mysql": "^2.15.0"
   }
 }
