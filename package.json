@@ -1,0 +1,28 @@
+{
+  "name": "ithub",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js",
+    "push": "git add . && git commit && git push"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xuxuelili/ithub.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/xuxuelili/ithub/issues"
+  },
+  "homepage": "https://github.com/xuxuelili/ithub#readme",
+  "dependencies": {
+    "art-template": "^4.12.2",
+    "bootstrap": "^3.3.7",
+    "express": "^4.16.3",
+    "express-art-template": "^1.0.1"
+  }
+}
