@@ -10,35 +10,35 @@ exports.showSignin = (req,res) => {
 exports.handleSignin = (req,res) => {
     //1.验证用户输入
     //2.验证邮箱密码是否正确
-    db.query(
-        'select * from `users` where `email` = ?',
-        req.body.email,
-        (error,results) => {
-            if (error) {
-                return res.send('服务器内部错误');
-            }
-            // console.log(results);
-            if (results.length <= 0) {
-                //说明邮箱不存在
-                return res.json({
-                    code: 401,
-                    msg: '邮箱不正确'
-                })
-            }
-            req.body.password = md5(req.body.password);
-            if (req.body.password !== results[0].password) {
-                //密码不正确
-                return res.json({
-                    code: 402,
-                    msg: '密码不正确'
-                })
-            }
+    userModel.getByEmail(req.body.email, (err, user) => {
+        if (err) {
+            return res.send('服务器内部错误!');
+        }
+        if (!user) {
+            //邮箱不存在
             res.json({
-                code: 200,
-                msg: '登录成功'
+                code: 401,
+                msg: '邮箱不存在,请重新输入或注册新用户!'
             })
         }
-    )
+
+        //验证密码
+        const password = md5(req.body.password);
+        if (password == user.password) {
+            //记录session
+            delete user.password;
+            req.session.user = user;
+            res.json({
+                code: 200,
+                msg: '登录成功!'
+            })
+        } else {
+            res.json({
+                code: 402,
+                msg: '密码错误,请重新输入'
+            });
+        }
+    });
 }
 //用户注册渲染
 exports.showSignup = (req,res) => {
