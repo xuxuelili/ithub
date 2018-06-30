@@ -5,17 +5,20 @@ const expressArttemplate = require('express-art-template');
 const bodyParser = require('body-parser');
 const session = require('express-session');
 
+//引入公共文件
+const config = require('./config');
+
 //session持久化   引入express-mysql-session包
-var MySQLStore = require('express-mysql-session')(session);
+const MySQLStore = require('express-mysql-session')(session);
 
 
 //导入路由模块
 const router = require('./routes/router');
 
-const PORT = 3000;
+
 //监听端口号
-app.listen(PORT,function () {
-    console.log('监听 3000');
+app.listen(config.port,function () {
+    console.log('监听 '+ config.port);
 })
 
 //处理静态资源
@@ -30,13 +33,14 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 
+const bd = config.database;
 //把session 保存在数据库中
 var options = {
-    host: 'localhost',
-    port: 3306,
-    user: 'root',
-    password: '123456',
-    database: 'ithub'
+    host: bd.host,
+    port: bd.port,
+    user: bd.user,
+    password: bd.password,
+    database: bd.database
 };
 var sessionStore = new MySQLStore(options);
 
