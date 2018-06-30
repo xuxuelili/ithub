@@ -5,6 +5,10 @@ const expressArttemplate = require('express-art-template');
 const bodyParser = require('body-parser');
 const session = require('express-session');
 
+//session持久化   引入express-mysql-session包
+var MySQLStore = require('express-mysql-session')(session);
+
+
 //导入路由模块
 const router = require('./routes/router');
 
@@ -25,12 +29,23 @@ app.engine('html',expressArttemplate);
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+
+//把session 保存在数据库中
+var options = {
+    host: 'localhost',
+    port: 3306,
+    user: 'root',
+    password: '123456',
+    database: 'ithub'
+};
+var sessionStore = new MySQLStore(options);
+
 // 配置session
 app.use(session({
     key: 'sessionid',  // 修改sessionid的名称
     secret: 'keyboard cat',  // 对sessionid 进行加密 
     resave: false,   // 强制重新存储服务器上的session数据  
-    // store: sessionStore,   // 配置把session数据存储到mysql
+    store: sessionStore,   // 配置把session数据存储到mysql
     saveUninitialized: true  // 即使不写session 也会生成sessionid
   }));
 
