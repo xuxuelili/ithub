@@ -40,6 +40,23 @@
     <script src="/node_modules/jquery/dist/jquery.js"></script>
     <script>
         // 处理表单提交
+        $("#signin_form").submit(function (e) {
+            e.preventDefault();
+            // var data = $(this).serialize();
+            // console.log(data);
+            var data = {
+                email: $('#email').val(),
+                password: $('#password').val()
+            }
+            $.post('/signin',data,function (resData) {
+                var {code, msg } = resData;
+                if (code == 200) {
+                    location.href = '/';
+                } else {
+                    alert(msg);
+                }
+            })
+        })
     </script>
 </body>
 

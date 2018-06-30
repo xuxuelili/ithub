@@ -11,6 +11,7 @@ exports.handleSignin = (req,res) => {
     //1.验证用户输入
     //2.验证邮箱密码是否正确
     userModel.getByEmail(req.body.email, (err, user) => {
+        // console.log(user);
         if (err) {
             return res.send('服务器内部错误!');
         }
@@ -24,10 +25,11 @@ exports.handleSignin = (req,res) => {
 
         //验证密码
         const password = md5(req.body.password);
-        if (password == user.password) {
+        if (password === user.password) {
             //记录session
             delete user.password;
             req.session.user = user;
+            console.log(user);
             res.json({
                 code: 200,
                 msg: '登录成功!'
