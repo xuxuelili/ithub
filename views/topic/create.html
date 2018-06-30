@@ -14,7 +14,7 @@
                 <form id="form">
                     <div class="form-group">
                         <label for="cid">标题</label>
-                        <select class="form-control">
+                        <select class="form-control" name="categoryId" id="categoryId">
                             {{ each categories}}
                             <option value="{{ $value.id }}">{{ $value.name }}</option>
                             {{ /each }}
@@ -38,6 +38,20 @@
     <script src="/node_modules/bootstrap/dist/js/bootstrap.js"></script>
     <script>
         // 处理表单提交
+        $('#form').on('submit',function (e) {
+            e.preventDefault();
+            //获取表单数据
+            var dataForm = $(this).serialize();
+            $.post('/topic/create',dataForm, function (data) {
+                var { code, msg } = data;
+                if (code == 200) {
+                    // alert(msg);
+                    location.href = '/';
+                } else {
+                    alert(msg);
+                }
+            })
+        })
     </script>
 </body>
 
