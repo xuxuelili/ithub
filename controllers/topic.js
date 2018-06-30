@@ -1,5 +1,12 @@
+const categoryModel = require('../models/category');
+
 exports.showCreate = (req,res) => {
-    res.render('../views/topic/create.html');
+    categoryModel.getAll((err, categories) => {
+        res.render('topic/create.html',{
+            categories
+        });
+    })
+    
 };
 
 exports.handleCreate = (req,res) => {
