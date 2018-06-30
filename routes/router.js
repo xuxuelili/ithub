@@ -6,6 +6,7 @@ const express = require('express');
 //加载所有的处理函数
 const indexCtrl = require('../controllers/index');
 const userCtrl = require('../controllers/user');
+const topicCtrl = require('../controllers/topic');
 
 //2.调用express.Router() 创建一个路由实例
 const router = express.Router();
@@ -23,7 +24,14 @@ router
     .get('/signout',userCtrl.handleSignout)
 
 //设置话题
-//TODO
+router
+    .get('/topic/create',topicCtrl.showCreate)
+    .post('/topic/create',topicCtrl.handleCreate)
+    .get('/topic/:topicID',topicCtrl.showTopic)
+    .get('/topic/:topicID/edit',topicCtrl.showEdit)
+    .post('/topic/:topicID/edit',topicCtrl.handleEdit)
+    .get('/topic/:topicID/delete',topicCtrl.handleDelete)
+
 
 //3.导出路由对象
 module.exports = router;
