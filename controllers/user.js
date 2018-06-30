@@ -90,5 +90,7 @@ exports.handleSignup = (req, res) => {
 }
 //处理登出逻辑
 exports.handleSignout = (req,res) => {
-    res.send('handleSignout');
+    //销毁session
+    req.session.destroy();
+    res.redirect('/signin');
 }
