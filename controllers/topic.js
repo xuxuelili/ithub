@@ -96,7 +96,29 @@ exports.showEdit = (req,res) => {
 
 //处理编辑页
 exports.handleEdit = (req,res) => {
-    res.render();
+    const id = req.params.topicID;
+    req.body.id = id;
+    topicModel.updata(req.body, (err, isOK) => {
+        if (err) {
+            return res.json({
+                code: 500,
+                msg: '服务器内部错误'
+            })
+        }
+        if (isOK) {
+            res.json({
+                code: 200,
+                msg: '修改成功!'
+            })
+
+        } else {
+            res.json({
+                code: 401,
+                msg: '修改失败!'
+            })
+        }
+
+    })
 };
 
 //根据id删除详情页

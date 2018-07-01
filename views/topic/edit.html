@@ -44,7 +44,21 @@
   <script src="/node_modules/jquery/dist/jquery.js"></script>
   <script src="/node_modules/bootstrap/dist/js/bootstrap.js"></script>
   <script>
-   
+   $('#frm').submit(function (e) {
+       e.preventDefault();
+    //    alert(1)
+       var formData = $(this).serialize();
+       var id = $("#hd").val();
+       $.post('/topic/'+ id +'/edit', formData, function (data) {
+           if (data.code == 200) {
+               //修改成功
+               location.href = '/';
+           } else {
+               //修改失败
+               alert(msg);
+           }
+       })
+   })
   </script>
 </body>
 
