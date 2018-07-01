@@ -77,6 +77,18 @@ exports.handleEdit = (req,res) => {
     res.render();
 };
 
+//根据id删除详情页
 exports.handleDelete = (req,res) => {
-    res.render();
+    //获取到id
+    const id = req.params.topicID;
+    topicModel.delect(id, (err, isOK) => {
+        if (err) {
+            return res.send('服务器内部错误')
+        }
+        if (isOK) {
+            res.redirect('/');
+        } else {
+            res.send('删除失败');
+        }
+    })
 };

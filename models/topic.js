@@ -49,12 +49,12 @@ exports.delect = (id, callback) => {
             if (err) {
                 return callback(err);
             }
-            if (results.length > 0) {
+            if (results.affectedRows > 0) {
                 //查询到了数据
-                callback(null, results[0]);
+                callback(null, true);
             } else {
                 //没有查询到数据
-                callback(null, null)
+                callback(null, false)
             }
         }
     );
