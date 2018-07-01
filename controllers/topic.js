@@ -69,10 +69,32 @@ exports.showTopic = (req,res) => {
     
 };
 
+//显示编辑页面
 exports.showEdit = (req,res) => {
-    res.render();
+    //先获取所有的分类,然后根据id获取当前的分类 
+    // 获取url传递的id, 动态路由
+    categoryModel.getAll((err, categories) => {
+       const topicId = req.params.topicID;
+        console.log(categories);
+        topicModel.getById(topicId, (err, topic) => {
+            if (err) {
+                return res.send('服务器内部错误')
+            }
+            if (topic) {
+                res.render('topic/edit.html', {
+                    categories,
+                    topic,
+                    user: req.session.user
+                  });
+            } else {
+                res.send('没有查询到数据')
+            }
+        })
+    })
+   
 };
 
+//处理编辑页
 exports.handleEdit = (req,res) => {
     res.render();
 };
