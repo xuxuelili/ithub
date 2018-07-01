@@ -44,8 +44,28 @@ exports.handleCreate = (req,res) => {
     })
 };
 
+//详情页显示
 exports.showTopic = (req,res) => {
-    res.render();
+    // 获取url传递的id, 动态路由
+    const topicId = req.params.topicID;
+    if (isNaN(topicId)) {
+        res.send('参数错误')
+    }
+    topicModel.getById(topicId, (err, topic) => {
+        if (err) {
+            return res.send('服务器内部错误')
+        }
+        if (topic) {
+            res.render('topic/show.html',{
+                topic,
+                user: req.session.id
+            });
+        } else {
+            res.send('该话题不存在');
+        }
+        
+    })
+    
 };
 
 exports.showEdit = (req,res) => {
