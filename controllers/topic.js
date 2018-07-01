@@ -5,7 +5,8 @@ const topicModel = require('../models/topic');
 exports.showCreate = (req,res) => {
     categoryModel.getAll((err, categories) => {
         res.render('topic/create.html',{
-            categories
+            categories,
+            user: req.session.user
         });
     })
     
@@ -20,7 +21,7 @@ exports.handleCreate = (req,res) => {
             msg: '登录过期,请先登录'
         })
     }
-    req.body.userId = req.session.id;
+    req.body.userId = req.session.user.id;
     req.body.createdAt = new Date();
     topicModel.createTopic(req.body, (err, isOK) => {
         if (err) {
