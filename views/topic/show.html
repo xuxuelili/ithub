@@ -19,12 +19,16 @@
             <div class="col-md-9">
                 {{ if !topic }}
                 <p>此话题不存在或已被删除。</p>
-                <a class="btn btn-success" href="/">返回首页</a> {{ else }}
+                <a class="btn btn-success" href="/">返回首页</a>
+                {{ else }}
                 <article class="markdown-body">
                     <h1>{{ topic.title }}</h1>
                     {{ if topic.userId === user.id }}
-                    <a href="/topic/{{ topic.id }}/edit">编辑</a>
-                    <a href="/topic/{{ topic.id }}/delete" id="delete_topic">删除</a> {{ /if }}
+                    <!-- <a href="/topic/{{ topic.id }}/edit">编辑</a>
+                    <a href="/topic/{{ topic.id }}/delete" id="delete_topic">删除</a>  -->
+                    <a href="/topic/{{ topic.id }}/edit">编辑</a> 
+                    <a href="/topic/{{ topic.id }}/delete" onclick="return confirm('确认删除')">删除</a>
+                {{ /if }}
                     <hr>
                     <!-- 
           art-template 为了安全起见，默认是不渲染 HTML 格式的文件，它会帮你原样输出
